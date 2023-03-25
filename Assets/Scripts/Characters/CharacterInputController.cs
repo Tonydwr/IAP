@@ -345,6 +345,7 @@ void HandleSwipe(SwipeDir dir){
 					}
 						
 					m_IsSwiping = false;
+                    
 				}
             }
 

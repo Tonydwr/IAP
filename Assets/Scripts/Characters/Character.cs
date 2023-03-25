@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
 	public int premiumCost;
 
 	public CharacterAccessories[] accessories;
-    public Rigidbody rigidbody;
+    // public Rigidbody rigidbody;
 
     public Animator animator;
 	public Sprite icon;

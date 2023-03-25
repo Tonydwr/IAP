@@ -198,10 +198,11 @@ public class GameState : AState
             });
 #endif
             }
-            else if(trackManager.isTutorial || !m_AdsInitialised)
-                adsForLifeButton.SetActive(false);
+            else if(trackManager.isTutorial || !m_AdsInitialised){
+                // adsForLifeButton.SetActive(false);
+            }
 #else
-            adsForLifeButton.SetActive(false); //Ads is disabled
+            // adsForLifeButton.SetActive(false); //Ads is disabled
 #endif
 
             return;
@@ -350,8 +351,15 @@ public class GameState : AState
 
         scoreText.text = trackManager.score.ToString();
         multiplierText.text = "x " + trackManager.multiplier;
+        int score = 0;
+        if (PlayerData.instance.highscores != null && PlayerData.instance.highscores.Count > 0){
+            score = PlayerData.instance.highscores[0].score;
+        }
 
-		distanceText.text = Mathf.FloorToInt(trackManager.worldDistance).ToString() + "m";
+        if (trackManager.score > score){
+            score = trackManager.score;
+        }
+		distanceText.text = score.ToString();
 
 		if (trackManager.timeToStart >= 0)
 		{
@@ -407,9 +415,9 @@ public class GameState : AState
 
     public void OpenGameOverPopup()
     {
-        premiumForLifeButton.interactable = PlayerData.instance.premium >= 3;
+        // premiumForLifeButton.interactable = PlayerData.instance.premium >= 3;
 
-        premiumCurrencyOwned.text = PlayerData.instance.premium.ToString();
+        // premiumCurrencyOwned.text = PlayerData.instance.premium.ToString();
 
         ClearPowerup();
 

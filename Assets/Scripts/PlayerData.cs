@@ -52,6 +52,8 @@ public class PlayerData
 
 	public float masterVolume = float.MinValue, musicVolume = float.MinValue, masterSFXVolume = float.MinValue;
 
+    public bool enableVoice = false;
+
     //ftue = First Time User Expeerience. This var is used to track thing a player do for the first time. It increment everytime the user do one of the step
     //e.g. it will increment to 1 when they click Start, to 2 when doing the first run, 3 when running at least 300m etc.
     public int ftueLevel = 0;
@@ -383,6 +385,10 @@ public class PlayerData
         {
             tutorialDone = r.ReadBoolean();
         }
+        
+        if (ver >= 13){
+            enableVoice = r.ReadBoolean();
+        }
 
         r.Close();
     }
@@ -455,7 +461,7 @@ public class PlayerData
         w.Write(rank);
 
         w.Write(tutorialDone);
-
+        w.Write(enableVoice);
         w.Close();
     }
 

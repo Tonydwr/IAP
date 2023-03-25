@@ -50,6 +50,14 @@ MonoBehaviour:
     m_Address: Assets/Prefabs/UI/Score.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
+  - m_GUID: 16bef3f5ab9894346809367dac43f9a5
+    m_Address: mute_sound
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+  - m_GUID: edca3f1bc5959d94387ffbaa711eda8e
+    m_Address: sound_active
+    m_ReadOnly: 0
+    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 735e874f947d0e143a6b4e83f8a7283a, type: 2}
   m_SchemaSet:

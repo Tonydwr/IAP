@@ -42,6 +42,9 @@ public class LoadoutState : AState
 	public Leaderboard leaderboard;
     public MissionUI missionPopup;
 	public Button runButton;
+	public Image imgSound;
+	public Sprite soundActive;
+	public Sprite soundMute;
 
     public GameObject tutorialBlocker;
     public GameObject tutorialPrompt;
@@ -179,6 +182,25 @@ public class LoadoutState : AState
 	{
         UnityEngine.SceneManagement.SceneManager.LoadScene(k_ShopSceneName, UnityEngine.SceneManagement.LoadSceneMode.Additive);
 	}
+
+    public void SetVolume(){
+        PlayerData.instance.enableVoice = !PlayerData.instance.enableVoice;
+        RefreshVolume();
+        imgSound.sprite = PlayerData.instance.enableVoice ? soundActive : soundMute;
+    }
+
+    void RefreshVolume(){
+        if (PlayerData.instance.enableVoice){
+			MusicPlayer.instance.mixer.SetFloat ("MasterVolume", PlayerData.instance.masterVolume);
+			MusicPlayer.instance.mixer.SetFloat ("MusicVolume", PlayerData.instance.musicVolume);
+			MusicPlayer.instance.mixer.SetFloat ("MasterSFXVolume", PlayerData.instance.masterSFXVolume);
+        }
+        else{
+			MusicPlayer.instance.mixer.SetFloat ("MasterVolume", -999f);
+			MusicPlayer.instance.mixer.SetFloat ("MusicVolume", -999f);
+			MusicPlayer.instance.mixer.SetFloat ("MasterSFXVolume", -999f);
+        }
+    }
 
     public void ChangeCharacter(int dir)
     {
@@ -403,6 +425,12 @@ public class LoadoutState : AState
         }
 
         manager.SwitchState("Game");
+        var state = manager.FindState("Game") as GameState;
+        Addressables.LoadAssetAsync<GameObject>("CoinMagnet").Completed += (handle) =>{
+            GameObject prefab = handle.Result;
+            var magnet = GameObject.Instantiate(prefab);
+            state.trackManager.characterController.UseConsumable(magnet.GetComponent<CoinMagnet>());
+        };
     }
 
 	public void Openleaderboard()
